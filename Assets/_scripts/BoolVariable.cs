@@ -5,18 +5,13 @@ public class BoolVariable : ScriptableObject
 {
     public bool Value;
 
-    public void SetValue(bool value)
+    public void SetFalse()
     {
-        Value = value;
+        Value = false;
     }
 
-    public void SetValue(BoolVariable value)
+    public void SetTrue()
     {
-        Value = value.Value;
-    }
-
-    public void FlipValue()
-    {
-        Value = !Value;
+        Value = true;
     }
 }

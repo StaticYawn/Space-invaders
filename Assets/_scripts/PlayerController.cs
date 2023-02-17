@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        shot.SetValue(false);
+        shot.SetFalse();
     }
 
     void Update()
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
             {
                 ProjSpawning spawn = transform.GetComponentInChildren<ProjSpawning>();
                 spawn.Shoot();
-                shot.SetValue(true);
+                shot.SetTrue();
             }
         }
     }

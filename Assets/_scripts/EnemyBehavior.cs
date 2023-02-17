@@ -77,14 +77,14 @@ public class EnemyBehavior : MonoBehaviour
         if(direction == "down")
         {
             move = new Vector3(transform.position.x, transform.position.y - 1, transform.position.y);
-            down.SetValue(false);
+            down.SetFalse();
         }
         else if(direction == "left")
         {
             if (HitWall(direction))
             {
-                down.SetValue(true);
-                leftOrRight.SetValue(false);
+                down.SetTrue();
+                leftOrRight.SetFalse();
             }
             move = new Vector3(transform.position.x - 1, transform.position.y, transform.position.y);
             
@@ -93,8 +93,8 @@ public class EnemyBehavior : MonoBehaviour
         {
             if (HitWall(direction))
             {
-                down.SetValue(true);
-                leftOrRight.SetValue(true);
+                down.SetTrue();
+                leftOrRight.SetTrue();
             }
             move = new Vector3(transform.position.x + 1, transform.position.y, transform.position.y);
         }

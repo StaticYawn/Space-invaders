@@ -36,7 +36,7 @@ public class BulletController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider == gameObject) return;
-        shot.SetValue(false);
+        shot.SetFalse();
         Destroy(gameObject);
     }
 }

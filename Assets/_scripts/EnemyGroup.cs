@@ -34,9 +34,9 @@ public class EnemyGroup : MonoBehaviour
 
     void Start()
     {
-        leftOrRight.SetValue(false);
-        down.SetValue(false);
-        shot.SetValue(false);
+        leftOrRight.SetFalse();
+        down.SetFalse();
+        shot.SetFalse();
 
         enemies = new GameObject[rows, columns];
         columBoundRight = (columns - 1) / 2;
@@ -63,7 +63,7 @@ public class EnemyGroup : MonoBehaviour
         if (!shot.Value)
         {
             ShotControl();
-            shot.SetValue(true);
+            shot.SetTrue();
         }
     }
 
