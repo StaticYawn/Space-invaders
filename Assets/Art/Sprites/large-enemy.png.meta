@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 993a93096c238e74f9777cc1ac7ae678
+guid: 456b2b4f0b47ae54d8ef1183410018ff
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: medium-enemy_0
+      name: large-enemy_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 96623c09f3c7532418aba1de3ca70985
-      internalID: 1095089988
+      spriteID: 29ff05eb9ebf87144a37fcc3f76e0097
+      internalID: -212888744
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: medium-enemy_1
+      name: large-enemy_1
       rect:
         serializedVersion: 2
         x: 16
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 191bea781ff50d04f91910d7e1f2f37e
-      internalID: 321507545
+      spriteID: a152f2efa58b41144800e24a6e101017
+      internalID: 1306551066
       vertices: []
       indices: 
       edges: []
@@ -157,8 +157,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      medium-enemy_1: 321507545
-      medium-enemy_0: 1095089988
+      large-enemy_0: -212888744
+      large-enemy_1: 1306551066
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

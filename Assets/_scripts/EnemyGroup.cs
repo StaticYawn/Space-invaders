@@ -6,10 +6,10 @@ using Random = System.Random;
 
 public class EnemyGroup : MonoBehaviour
 {
-    [SerializeField] int _rows;
-    [SerializeField] int _columns;
+    [SerializeField] FloatVariable _rows;
+    [SerializeField] FloatVariable _columns;
+    [SerializeField] FloatVariable _moveTick;
 
-    [SerializeField] float _moveTick;
     private float _tickTimer;
     private float _spawnRow;
 
@@ -39,19 +39,19 @@ public class EnemyGroup : MonoBehaviour
         Shot.SetFalse();
 
         _maxBoundTop = _camera.orthographicSize - 2;
-        _enemies = new GameObject[_rows, _columns];
+        _enemies = new GameObject[(int)_rows.Value, (int)_columns.Value];
 
-        _columBoundRight = (_columns - 1) / 2;
+        _columBoundRight = (int)(_columns.Value - 1) / 2;
         _columnBoundLeft = _columBoundRight * -1;
 
-        _spawnRow = _maxBoundTop - _rows + 1;
+        _spawnRow = _maxBoundTop - _rows.Value + 1;
 
-        spawnEnemies();
+        SpawnEnemies();
     }
 
     void Update()
     {
-        if (_tickTimer > _moveTick)
+        if (_tickTimer > _moveTick.Value)
         {
             string direction = Down.Value ? "down" : LeftOrRight.Value ? "left" : "right";
             MoveEnemies(direction);
@@ -71,8 +71,8 @@ public class EnemyGroup : MonoBehaviour
 
     int[] GenerateRowTypes()
     {
-        int[] temp = new int[_rows];
-        for(int i = 0; i < _rows; i++)
+        int[] temp = new int[(int)_rows.Value];
+        for(int i = 0; i < _rows.Value; i++)
         {
             temp[i] = i % 3;
         }
@@ -81,10 +81,10 @@ public class EnemyGroup : MonoBehaviour
         return temp;
     }
 
-    public void spawnEnemies()
+    public void SpawnEnemies()
     {
         _rowTypes = GenerateRowTypes();
-        for (int y = 0; y < _rows; y++)
+        for (int y = 0; y < _rows.Value; y++)
         {
             int colNum = 0;
             for (int x = _columnBoundLeft; x < _columBoundRight + 1; x++)
@@ -95,6 +95,17 @@ public class EnemyGroup : MonoBehaviour
                 colNum++;
             }
         }
+    }
+
+    public void ResetEnemies()
+    {
+        foreach(Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        SpawnEnemies();
+
+        LeftOrRight.SetFalse();
     }
 
     private void MoveEnemies(string s)

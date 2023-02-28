@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] GameEvent[] _gameEvents;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +15,25 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void UpdateScoreUI()
+    {
+        _gameEvents[0].Raise();
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1;
+    }
+
+    public void ResetEnemies()
+    {
+        _gameEvents[1].Raise();
     }
 }

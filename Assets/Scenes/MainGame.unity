@@ -2112,53 +2112,13 @@ PrefabInstance:
       value: EnemyGroup
       objectReference: {fileID: 0}
     - target: {fileID: 7282317882747834048, guid: 033a0a7106c42a2469c091dd76e4ad55, type: 3}
-      propertyPath: Down
-      value: 
-      objectReference: {fileID: 11400000, guid: 546e3d9f5bdd0b74ab4ecaae1a0e5fff, type: 2}
-    - target: {fileID: 7282317882747834048, guid: 033a0a7106c42a2469c091dd76e4ad55, type: 3}
-      propertyPath: Shot
-      value: 
-      objectReference: {fileID: 11400000, guid: 4a7c1af77eeb194408296e0e1f53e9cf, type: 2}
-    - target: {fileID: 7282317882747834048, guid: 033a0a7106c42a2469c091dd76e4ad55, type: 3}
       propertyPath: test
       value: 
       objectReference: {fileID: 519420031}
     - target: {fileID: 7282317882747834048, guid: 033a0a7106c42a2469c091dd76e4ad55, type: 3}
-      propertyPath: _rows
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282317882747834048, guid: 033a0a7106c42a2469c091dd76e4ad55, type: 3}
       propertyPath: _camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 7282317882747834048, guid: 033a0a7106c42a2469c091dd76e4ad55, type: 3}
-      propertyPath: _columns
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282317882747834048, guid: 033a0a7106c42a2469c091dd76e4ad55, type: 3}
-      propertyPath: _moveTick
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282317882747834048, guid: 033a0a7106c42a2469c091dd76e4ad55, type: 3}
-      propertyPath: LeftOrRight
-      value: 
-      objectReference: {fileID: 11400000, guid: 9f5495fde381a1c4780a774ed1e6538e, type: 2}
-    - target: {fileID: 7282317882747834048, guid: 033a0a7106c42a2469c091dd76e4ad55, type: 3}
-      propertyPath: _enemyTypes.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282317882747834048, guid: 033a0a7106c42a2469c091dd76e4ad55, type: 3}
-      propertyPath: _enemyTypes.Array.data[0]
-      value: 
-      objectReference: {fileID: 8844945619689800288, guid: 94ceb3ef8f78f25498a8e81d9b716e9c, type: 3}
-    - target: {fileID: 7282317882747834048, guid: 033a0a7106c42a2469c091dd76e4ad55, type: 3}
-      propertyPath: _enemyTypes.Array.data[1]
-      value: 
-      objectReference: {fileID: 8844945619689800288, guid: 45ce51ae653287347a631dcac10e4619, type: 3}
-    - target: {fileID: 7282317882747834048, guid: 033a0a7106c42a2469c091dd76e4ad55, type: 3}
-      propertyPath: _enemyTypes.Array.data[2]
-      value: 
-      objectReference: {fileID: 8844945619689800288, guid: 6d99b3e1d0fdb4a4f823aa98191192ce, type: 3}
     - target: {fileID: 7282317882747834049, guid: 033a0a7106c42a2469c091dd76e4ad55, type: 3}
       propertyPath: m_RootOrder
       value: 4
