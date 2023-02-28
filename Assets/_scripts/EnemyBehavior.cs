@@ -7,6 +7,10 @@ public class EnemyBehavior : MonoBehaviour
     public BoolVariable LeftOrRight;
     public BoolVariable Down;
 
+    [SerializeField] FloatReference _unitScore;
+    [SerializeField] FloatVariable _gameScore;
+    [SerializeField] GameEvent hit;
+
     public bool HitWall(string s)
     {
         float posX;
@@ -51,6 +55,8 @@ public class EnemyBehavior : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider == gameObject) return;
+        _gameScore.ApplyChange(_unitScore.Value);
+        hit.Raise();
         Destroy(gameObject);
     }
 

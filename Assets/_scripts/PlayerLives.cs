@@ -7,7 +7,9 @@ public class PlayerLives : MonoBehaviour
     public FloatVariable HP;
     public bool ResetHP;
     public FloatReference StartingHP;
-    // Start is called before the first frame update
+
+    [SerializeField] GameEvent hit;
+
     void Start()
     {
         if (ResetHP)
@@ -16,9 +18,13 @@ public class PlayerLives : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        Collider2D collider = collision.collider;
+        if (collider.CompareTag("enemy_bullet"))
+        {
+            HP.SetValue(HP.Value - 1);
+            hit.Raise();
+        }
     }
 }

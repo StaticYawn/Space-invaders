@@ -38,7 +38,7 @@ public class EnemyGroup : MonoBehaviour
         Down.SetFalse();
         Shot.SetFalse();
 
-        _maxBoundTop = _camera.orthographicSize - 1;
+        _maxBoundTop = _camera.orthographicSize - 2;
         _enemies = new GameObject[_rows, _columns];
 
         _columBoundRight = (_columns - 1) / 2;
