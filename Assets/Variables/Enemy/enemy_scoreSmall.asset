@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af8928e285ba814ebb06f58ed1627fa, type: 3}
   m_Name: enemy_scoreSmall
   m_EditorClassIdentifier: 
-  Value: 0
+  Value: 30
