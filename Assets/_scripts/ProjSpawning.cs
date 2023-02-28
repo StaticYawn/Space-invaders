@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ProjSpawning : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject bullet;
+    [SerializeField] private GameObject _bullet;
 
     public void Shoot()
     {
-        Instantiate(bullet, transform.position, transform.rotation);
+        Instantiate(_bullet, transform.position, transform.rotation);
     }
 }

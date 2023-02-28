@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    [SerializeField] BoolVariable shot;
-    [SerializeField] private FloatReference ShotSpeed;
+    private Rigidbody2D _rb;
+    [SerializeField] BoolVariable _shot;
+    [SerializeField] private FloatReference _shotSpeed;
 
     private enum Direction { up, down, left, right }
     [SerializeField] private Direction direction;
@@ -15,7 +15,7 @@ public class BulletController : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     void Start()
@@ -30,13 +30,13 @@ public class BulletController : MonoBehaviour
 
     void Update()
     {
-        rb.velocity = shotDirection * ShotSpeed.Value;
+        _rb.velocity = shotDirection * _shotSpeed.Value;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider == gameObject) return;
-        shot.SetFalse();
+        _shot.SetFalse();
         Destroy(gameObject);
     }
 }

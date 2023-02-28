@@ -4,25 +4,8 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    private Rigidbody2D rb;
-
-    public BoolVariable leftOrRight;
-    public BoolVariable down;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per framek
-    void Update()
-    {
-    }
+    public BoolVariable LeftOrRight;
+    public BoolVariable Down;
 
     public bool HitWall(string s)
     {
@@ -77,14 +60,14 @@ public class EnemyBehavior : MonoBehaviour
         if(direction == "down")
         {
             move = new Vector3(transform.position.x, transform.position.y - 1, transform.position.y);
-            down.SetFalse();
+            Down.SetFalse();
         }
         else if(direction == "left")
         {
             if (HitWall(direction))
             {
-                down.SetTrue();
-                leftOrRight.SetFalse();
+                Down.SetTrue();
+                LeftOrRight.SetFalse();
             }
             move = new Vector3(transform.position.x - 1, transform.position.y, transform.position.y);
             
@@ -93,8 +76,8 @@ public class EnemyBehavior : MonoBehaviour
         {
             if (HitWall(direction))
             {
-                down.SetTrue();
-                leftOrRight.SetTrue();
+                Down.SetTrue();
+                LeftOrRight.SetTrue();
             }
             move = new Vector3(transform.position.x + 1, transform.position.y, transform.position.y);
         }

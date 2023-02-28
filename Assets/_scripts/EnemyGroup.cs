@@ -6,71 +6,73 @@ using Random = System.Random;
 
 public class EnemyGroup : MonoBehaviour
 {
-    [SerializeField] int rows;
-    [SerializeField] int columns;
+    [SerializeField] int _rows;
+    [SerializeField] int _columns;
 
-    [SerializeField] float moveTick;
-    private float tickTimer;
-    private int spawnRow;
+    [SerializeField] float _moveTick;
+    private float _tickTimer;
+    private float _spawnRow;
 
-    private GameObject[,] enemies;
-    private int[] rowTypes;
+    private GameObject[,] _enemies;
+    private int[] _rowTypes;
 
-    public BoolVariable leftOrRight;
-    public BoolVariable down;
-    public BoolVariable shot;
+    public BoolVariable LeftOrRight;
+    public BoolVariable Down;
+    public BoolVariable Shot;
 
-    private int columnBoundLeft;
-    private int columBoundRight;
-
-
-    private int maxBoundTop = 6;
-    private int maxBoundBottom;
-
-    static Random rnd = new Random();
+    private int _columnBoundLeft;
+    private int _columBoundRight;
 
 
-    [SerializeField] private GameObject[] enemyTypes;
+    private float _maxBoundTop;
+    private int _maxBoundBottom;
+
+    private Random _rnd = new Random();
+
+    [SerializeField] Camera _camera;
+    [SerializeField] private GameObject[] _enemyTypes;
 
     void Start()
     {
-        leftOrRight.SetFalse();
-        down.SetFalse();
-        shot.SetFalse();
+        LeftOrRight.SetFalse();
+        Down.SetFalse();
+        Shot.SetFalse();
 
-        enemies = new GameObject[rows, columns];
-        columBoundRight = (columns - 1) / 2;
-        columnBoundLeft = columBoundRight * -1;
+        _maxBoundTop = _camera.orthographicSize - 1;
+        _enemies = new GameObject[_rows, _columns];
 
-        spawnRow = maxBoundTop - rows + 1;
+        _columBoundRight = (_columns - 1) / 2;
+        _columnBoundLeft = _columBoundRight * -1;
+
+        _spawnRow = _maxBoundTop - _rows + 1;
 
         spawnEnemies();
     }
 
     void Update()
     {
-        if (tickTimer > moveTick)
+        if (_tickTimer > _moveTick)
         {
-            string direction = down.Value ? "down" : leftOrRight.Value ? "left" : "right";
+            string direction = Down.Value ? "down" : LeftOrRight.Value ? "left" : "right";
             MoveEnemies(direction);
-            tickTimer = 0;
+            _tickTimer = 0;
         }
         else
         {
-            tickTimer += Time.deltaTime;
+            _tickTimer += Time.deltaTime;
         }
 
-        if (!shot.Value)
+        if (!Shot.Value)
         {
             ShotControl();
-            shot.SetTrue();
+            Shot.SetTrue();
         }
     }
 
     int[] GenerateRowTypes()
     {
-        int[] temp = new int[rows];
-        for(int i = 0; i < rows; i++)
+        int[] temp = new int[_rows];
+        for(int i = 0; i < _rows; i++)
         {
             temp[i] = i % 3;
         }
@@ -81,14 +83,14 @@ public class EnemyGroup : MonoBehaviour
 
     public void spawnEnemies()
     {
-        rowTypes = GenerateRowTypes();
-        for (int y = 0; y < rows; y++)
+        _rowTypes = GenerateRowTypes();
+        for (int y = 0; y < _rows; y++)
         {
             int colNum = 0;
-            for (int x = columnBoundLeft; x < columBoundRight + 1; x++)
+            for (int x = _columnBoundLeft; x < _columBoundRight + 1; x++)
             {
-                GameObject enemy = Instantiate(enemyTypes[rowTypes[y]], new Vector3(x, (spawnRow + y), 0), transform.rotation);
-                enemies[y, colNum] = enemy;
+                GameObject enemy = Instantiate(_enemyTypes[_rowTypes[y]], new Vector3(x, (_spawnRow + y), 0), transform.rotation);
+                _enemies[y, colNum] = enemy;
                 enemy.transform.parent = transform;
                 colNum++;
             }
@@ -97,12 +99,12 @@ public class EnemyGroup : MonoBehaviour
 
     private void MoveEnemies(string s)
     {
-        for (int r = 0; r < enemies.GetLength(0); r++)
+        for (int r = 0; r < _enemies.GetLength(0); r++)
         {
-            for (int c = 0; c < enemies.GetLength(1); c++)
+            for (int c = 0; c < _enemies.GetLength(1); c++)
             {
-                if (enemies[r, c] == null) continue;
-                GameObject enemy = enemies[r, c];
+                if (_enemies[r, c] == null) continue;
+                GameObject enemy = _enemies[r, c];
                 EnemyBehavior behavior = enemy.GetComponent<EnemyBehavior>();
 
                 behavior.Move(s);
@@ -114,13 +116,15 @@ public class EnemyGroup : MonoBehaviour
     {
         List<GameObject> validShooters = new();
 
-        for (int r = 0; r < enemies.GetLength(0); r++)
+        for (int r = 0; r < _enemies.GetLength(0); r++)
         {
-            for (int c = 0; c < enemies.GetLength(1); c++)
+            for (int c = 0; c < _enemies.GetLength(1); c++)
             {
-                if (enemies[r, c] == null) continue;
-                GameObject enemy = enemies[r, c];
+                if (_enemies[r, c] == null) continue;
+
+                GameObject enemy = _enemies[r, c];
                 EnemyBehavior behavior = enemy.GetComponent<EnemyBehavior>();
+
                 if (!behavior.EnemyInFront())
                 {
                     validShooters.Add(enemy);
@@ -128,7 +132,9 @@ public class EnemyGroup : MonoBehaviour
             }
         }
 
-        int index = rnd.Next(validShooters.Count);
+        if (validShooters.Count <= 0) return;
+
+        int index = _rnd.Next(validShooters.Count);
         EnemyBehavior bhv = validShooters[index].GetComponent<EnemyBehavior>();
         bhv.Shoot();
     }

@@ -69,9 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0faffbb222b1f1d4c918e156ec41db95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 5
-  leftOrRight: {fileID: 11400000, guid: 9f5495fde381a1c4780a774ed1e6538e, type: 2}
-  down: {fileID: 11400000, guid: 546e3d9f5bdd0b74ab4ecaae1a0e5fff, type: 2}
+  LeftOrRight: {fileID: 11400000, guid: 9f5495fde381a1c4780a774ed1e6538e, type: 2}
+  Down: {fileID: 11400000, guid: 546e3d9f5bdd0b74ab4ecaae1a0e5fff, type: 2}
 --- !u!212 &8844945619689800292
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -137,7 +136,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0041121393, y: -0.07676007}
+  m_Offset: {x: 0.00084240735, y: -0.07676007}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -148,7 +147,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.37221232, y: 0.38591942}
+  m_Size: {x: 0.530759, y: 0.38591942}
   m_EdgeRadius: 0
 --- !u!1001 &8814219699750126218
 PrefabInstance:
@@ -235,6 +234,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7596382606675660049, guid: 0ad93144e5669bb429c349d96dab4d01, type: 3}
       propertyPath: bullet
+      value: 
+      objectReference: {fileID: 5828784140413338201, guid: 14916214a2054ad42bae4269855c1fa8, type: 3}
+    - target: {fileID: 7596382606675660049, guid: 0ad93144e5669bb429c349d96dab4d01, type: 3}
+      propertyPath: _bullet
       value: 
       objectReference: {fileID: 5828784140413338201, guid: 14916214a2054ad42bae4269855c1fa8, type: 3}
     - target: {fileID: 7596382606675660049, guid: 0ad93144e5669bb429c349d96dab4d01, type: 3}

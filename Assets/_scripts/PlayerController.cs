@@ -5,44 +5,43 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private FloatReference MoveSpeed;
-    [SerializeField] BoolVariable shot;
-    private bool MovingLeft = false;
-    private bool MovingRight = false;
-    private Rigidbody2D rb;
+    [SerializeField] private FloatReference _moveSpeed;
+    [SerializeField] BoolVariable _shot;
+    private bool _movingLeft = false;
+    private bool _movingRight = false;
+    private Rigidbody2D _rb;
 
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        shot.SetFalse();
+        _rb = GetComponent<Rigidbody2D>();
+        _shot.SetFalse();
     }
 
     void Update()
     {
-        rb.velocity = (MovingLeft ? Vector2.left : MovingRight ? Vector2.right : new Vector2(0, 0)) * MoveSpeed.Value;
+        _rb.velocity = (_movingLeft ? Vector2.left : _movingRight ? Vector2.right : new Vector2(0, 0)) * _moveSpeed.Value;
     }
 
     public void MoveLeft(InputAction.CallbackContext context)
     {
-        MovingLeft = context.performed;
+        _movingLeft = context.performed;
     }
 
     public void MoveRight(InputAction.CallbackContext context)
     {
-        MovingRight = context.performed;
+        _movingRight = context.performed;
     }
 
     public void HandleShot(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
-            if (shot.Value == false)
+            if (_shot.Value == false)
             {
                 ProjSpawning spawn = transform.GetComponentInChildren<ProjSpawning>();
                 spawn.Shoot();
-                shot.SetTrue();
+                _shot.SetTrue();
             }
         }
     }

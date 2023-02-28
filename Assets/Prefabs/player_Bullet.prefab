@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea03573cc2c23f24f9988a39bd66be70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shot: {fileID: 11400000, guid: 81b385ae04f293444954efc93a1f547a, type: 2}
-  ShotSpeed:
+  _shot: {fileID: 11400000, guid: 81b385ae04f293444954efc93a1f547a, type: 2}
+  _shotSpeed:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 5385882fa29e7704483a9484570ab4fa, type: 2}
