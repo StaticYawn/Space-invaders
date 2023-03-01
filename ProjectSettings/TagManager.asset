@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Walls
   - enemy_bullet
+  - GameManager
   layers:
   - Default
   - TransparentFX

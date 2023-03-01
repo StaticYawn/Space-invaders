@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2308d765516b6b41982ccd222b3938e, type: 3}
   m_Name: ResetEnemies
   m_EditorClassIdentifier: 
+  Name: ResetEnemies
+  id: 0

@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class GameManagerWindow : EditorWindow
 {
+    [SerializeField] FloatVariable _playerMoveSpeed;
+    [SerializeField] FloatVariable _playerShotSpeed;
     public FloatVariable EnemyRows;
     public FloatVariable EnemyColumns;
     public FloatVariable Score;
-
 
     GameManager _managerScript;
 
@@ -14,23 +15,35 @@ public class GameManagerWindow : EditorWindow
     bool _showPlayerStuff = false;
     bool _showGameStuff = false;
 
-    [MenuItem("Window/GameManager")]
-    static void Init()
+    private static GameManagerWindow _window;
+    private static bool _isOpen;
+
+    [MenuItem("Window/GameManager %F6")]
+    private static void Init()
     {
-        GameManagerWindow window = (GameManagerWindow)GetWindow(typeof(GameManagerWindow), false, "GameManager");
-        window.Show();
+        _window = (GameManagerWindow)GetWindow(typeof(GameManagerWindow), false, "GameManager");
+        if (_isOpen)
+        {
+            _window.Close();
+            _isOpen = false;
+        } else
+        {
+            _window.Show();
+            _isOpen = true;
+        }
     }
 
     private void OnEnable()
     {
         _managerScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
+
     private void OnGUI()
     {
         _showPlayerStuff = EditorGUILayout.Foldout(_showPlayerStuff, "Player Stuff");
         if (_showPlayerStuff)
         {
-
+            PlayerShotAndMoveSpeed();
         }
 
         EditorGUILayout.Space();
@@ -70,20 +83,37 @@ public class GameManagerWindow : EditorWindow
         EditorGUILayout.EndHorizontal();
     }
 
+    private void PlayerShotAndMoveSpeed()
+    {
+        EditorGUILayout.BeginHorizontal();
+        Label("Shot speed");
+        int shotSpeed = EditorGUILayout.IntField((int)_playerShotSpeed.Value);
+        _playerShotSpeed.SetValue(shotSpeed);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.Space();
+
+        EditorGUILayout.BeginHorizontal();
+        Label("Move speed");
+        int moveSpeed = EditorGUILayout.IntField((int)_playerMoveSpeed.Value);
+        _playerMoveSpeed.SetValue(moveSpeed);
+        EditorGUILayout.EndHorizontal();
+    }
+
     private void EnemyRowAndColCount()
     {
         EditorGUILayout.BeginHorizontal();
         Label("Rows");
         int rows = EditorGUILayout.IntField((int)EnemyRows.Value);
-        Score.SetValue(rows);
+        EnemyRows.SetValue(rows);
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.Space();
 
         EditorGUILayout.BeginHorizontal();
         Label("Columns");
-        int columns = EditorGUILayout.IntField((int)EnemyRows.Value);
-        Score.SetValue(columns);
+        int columns = EditorGUILayout.IntField((int)EnemyColumns.Value);
+        EnemyColumns.SetValue(columns);
         EditorGUILayout.EndHorizontal();
     }
 

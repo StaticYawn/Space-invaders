@@ -39,12 +39,8 @@ public class EnemyGroup : MonoBehaviour
         Shot.SetFalse();
 
         _maxBoundTop = _camera.orthographicSize - 2;
-        _enemies = new GameObject[(int)_rows.Value, (int)_columns.Value];
 
-        _columBoundRight = (int)(_columns.Value - 1) / 2;
-        _columnBoundLeft = _columBoundRight * -1;
-
-        _spawnRow = _maxBoundTop - _rows.Value + 1;
+        SetSpawnBounds();
 
         SpawnEnemies();
     }
@@ -81,8 +77,18 @@ public class EnemyGroup : MonoBehaviour
         return temp;
     }
 
+    private void SetSpawnBounds()
+    {
+        _columBoundRight = (int)(_columns.Value - 1) / 2;
+        _columnBoundLeft = _columBoundRight * -1;
+
+        _spawnRow = _maxBoundTop - _rows.Value + 1;
+    }
+
     public void SpawnEnemies()
     {
+        SetSpawnBounds();
+        _enemies = new GameObject[(int)_rows.Value, (int)_columns.Value];
         _rowTypes = GenerateRowTypes();
         for (int y = 0; y < _rows.Value; y++)
         {
