@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu]
 public class GameEvent : ScriptableObject
 {
-    public string Name;
-    public int id;
     private readonly List<GameEventListener> eventListeners = new();
 
     public void Raise()

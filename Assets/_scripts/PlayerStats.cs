@@ -6,13 +6,23 @@ public class PlayerStats : MonoBehaviour
 {
 
     [SerializeField] FloatVariable _lives;
+    [SerializeField] GameObject _liveImage;
 
-    public void UpdateLivesUi()
+    private void Start()
     {
-        int index = (int)_lives.Value;
-
-        Transform liveImage = transform.GetChild(index);
-        liveImage.gameObject.SetActive(false);
+        SetLivesUI();
     }
 
+    public void SetLivesUI()
+    {
+        foreach(Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for(int i = 0; i < _lives.Value; i++)
+        {
+            Instantiate(_liveImage, transform);
+        }
+    }
 }

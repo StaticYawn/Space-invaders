@@ -10,7 +10,7 @@ public class BarrierSetup : MonoBehaviour
     int _width;
     int _height;
 
-    float _pixelUnit = 0.0625f;
+    float _pixelSize = 0.0625f;
 
     int _widthHalf;
     void Start()
@@ -20,11 +20,6 @@ public class BarrierSetup : MonoBehaviour
         _height = _barrierSprite.height;
 
         Setup();
-    }
-
-    void Update()
-    {
-        
     }
 
     private void Setup()
@@ -38,7 +33,7 @@ public class BarrierSetup : MonoBehaviour
                 GameObject pixel = Instantiate(_barrierPixel);
                 pixel.transform.SetParent(transform);
 
-                Vector2 pos = new Vector2(transform.position.x + (x - _widthHalf) * _pixelUnit, transform.position.y + y * _pixelUnit);
+                Vector2 pos = new Vector2(transform.position.x + (x - _widthHalf) * _pixelSize, transform.position.y + y * _pixelSize);
                 pixel.transform.position = pos;
             }
         }

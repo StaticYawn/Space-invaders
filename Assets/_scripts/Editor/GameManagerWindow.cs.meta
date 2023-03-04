@@ -7,6 +7,7 @@ MonoImporter:
   - m_ViewDataDictionary: {instanceID: 0}
   - _playerMoveSpeed: {fileID: 11400000, guid: d9d9890cdaaca2d4eba51442ed3534ad, type: 2}
   - _playerShotSpeed: {fileID: 11400000, guid: 5385882fa29e7704483a9484570ab4fa, type: 2}
+  - _playerLives: {fileID: 11400000, guid: ff2910f870b403040b98f55e8a35bb62, type: 2}
   - EnemyRows: {fileID: 11400000, guid: 10d60477791bd2c40914116087385a53, type: 2}
   - EnemyColumns: {fileID: 11400000, guid: 0b4ba12edc4817348a42a8d5f6524ade, type: 2}
   - Score: {fileID: 11400000, guid: 5dd954a74b672fd4f919feaceb4dafb6, type: 2}

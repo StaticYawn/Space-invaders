@@ -5,6 +5,7 @@ public class GameManagerWindow : EditorWindow
 {
     [SerializeField] FloatVariable _playerMoveSpeed;
     [SerializeField] FloatVariable _playerShotSpeed;
+    [SerializeField] FloatVariable _playerLives;
     public FloatVariable EnemyRows;
     public FloatVariable EnemyColumns;
     public FloatVariable Score;
@@ -44,6 +45,8 @@ public class GameManagerWindow : EditorWindow
         if (_showPlayerStuff)
         {
             PlayerShotAndMoveSpeed();
+            EditorGUILayout.Space();
+            PlayerLives();
         }
 
         EditorGUILayout.Space();
@@ -97,6 +100,19 @@ public class GameManagerWindow : EditorWindow
         Label("Move speed");
         int moveSpeed = EditorGUILayout.IntField((int)_playerMoveSpeed.Value);
         _playerMoveSpeed.SetValue(moveSpeed);
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void PlayerLives()
+    {
+        EditorGUILayout.BeginHorizontal();
+        Label("Lives");
+        int lives = EditorGUILayout.IntField((int)_playerLives.Value);
+        _playerLives.SetValue(lives);
+        if(GUILayout.Button("Set Health"))
+        {
+            _managerScript.UpdateHealthUI();
+        }
         EditorGUILayout.EndHorizontal();
     }
 

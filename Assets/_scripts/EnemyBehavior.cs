@@ -28,10 +28,8 @@ public class EnemyBehavior : MonoBehaviour
         }
 
         Vector3 position = new Vector3(posX, transform.position.y, 0);
-        //Debug.DrawRay(position, dir, Color.green, 20);
 
         RaycastHit2D hit = Physics2D.Raycast(position, dir, 1);
-        //Debug.Log(hit.collider);
 
         if (hit.collider && hit.collider.CompareTag("Walls")) return true;
         else return false;
@@ -41,8 +39,6 @@ public class EnemyBehavior : MonoBehaviour
     {
         Vector3 position = new Vector3(transform.position.x, (transform.position.y - .6f), 0);
         RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, 2f);
-        //Debug.DrawRay(position, Vector2.down, Color.green, 20);
-        // Debug.Log(hit.collider);
         return hit.collider;
     }
 
@@ -55,6 +51,7 @@ public class EnemyBehavior : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider == gameObject) return;
+        if (collision.collider.CompareTag("enemy_bullet")) return;
         _gameScore.ApplyChange(_unitScore.Value);
         hit.Raise();
         Destroy(gameObject);

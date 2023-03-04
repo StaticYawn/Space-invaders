@@ -8,7 +8,8 @@ public class PlayerLives : MonoBehaviour
     public bool ResetHP;
     public FloatReference StartingHP;
 
-    [SerializeField] GameEvent hit;
+    [SerializeField] GameEvent _hit;
+    [SerializeField] GameEvent _death;
 
     void Start()
     {
@@ -24,7 +25,8 @@ public class PlayerLives : MonoBehaviour
         if (collider.CompareTag("enemy_bullet"))
         {
             HP.SetValue(HP.Value - 1);
-            hit.Raise();
+            _hit.Raise();
+            if(HP.Value == 0) _death.Raise();
         }
     }
 }

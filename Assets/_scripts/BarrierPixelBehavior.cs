@@ -35,9 +35,4 @@ public class BarrierPixelBehavior : MonoBehaviour
             }
         }
     }
-
-    private void OnDrawGizmos()
-    {
-        //Gizmos.DrawSphere(transform.position, _radius);
-    }
 }

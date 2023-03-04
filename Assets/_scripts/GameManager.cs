@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameEvent[] _gameEvents;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameEvent _updateScore;
+    [SerializeField] GameEvent _updateHighscore;
+    [SerializeField] GameEvent _updateLives;
+    [SerializeField] GameEvent _spawnEnemy;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] FloatVariable _gameScore;
+    [SerializeField] FloatVariable _highscore;
 
     public void UpdateScoreUI()
     {
-        _gameEvents[0].Raise();
+        _updateScore.Raise();
+    }
+
+    public void UpdateHighscoreUI()
+    {
+        _updateHighscore.Raise();
+    }
+
+    public void UpdateHealthUI()
+    {
+        _updateLives.Raise();
     }
 
     public void Pause()
@@ -34,6 +39,12 @@ public class GameManager : MonoBehaviour
 
     public void ResetEnemies()
     {
-        _gameEvents[1].Raise();
+        _spawnEnemy.Raise();
+    }
+
+    public void OnPlayerDeath()
+    {
+        UpdateHighscoreUI();
+        Pause();
     }
 }
