@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 8231873102367250704}
   - component: {fileID: 4127187179881261273}
   - component: {fileID: -1738859719877106770}
+  - component: {fileID: 9084936479895183318}
   m_Layer: 0
   m_Name: player_Bullet
-  m_TagString: Untagged
+  m_TagString: player_bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,9 +78,9 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 62c9e5c9127ccc94698aed023bb26008, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6, g: 0.8980392, b: 0.3137255, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
@@ -105,6 +106,8 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 5385882fa29e7704483a9484570ab4fa, type: 2}
   direction: 0
+  _explosionSprite: {fileID: 0}
+  _crash: {fileID: 21300000, guid: 529fe0316c36c9d45ae09983231e195c, type: 3}
 --- !u!50 &4127187179881261273
 Rigidbody2D:
   serializedVersion: 4
@@ -120,7 +123,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -152,3 +155,31 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.06326628, y: 0.37368646}
   m_EdgeRadius: 0
+--- !u!114 &9084936479895183318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5828784140413338201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413bb4646ef6bc84c9c71ea7e7180815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 1e8a5b1cb96f42a4c9e02afafafbd867, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8231873102367250704}
+        m_TargetAssemblyTypeName: BulletController, Assembly-CSharp
+        m_MethodName: DestroyBullet
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

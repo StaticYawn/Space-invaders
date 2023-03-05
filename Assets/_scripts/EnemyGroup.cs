@@ -48,22 +48,6 @@ public class EnemyGroup : MonoBehaviour
         StartCoroutine(MoveEnemiesCrt());
     }
 
-    void Update()
-    {
-        //_moveSpeed = transform.childCount / _enemies.Length;
-        //if (_tickTimer > _moveSpeed)
-        //{
-        //    MoveEnemies();
-        //    _tickTimer = 0;
-        //}
-        //else
-        //{
-        //    _tickTimer += Time.deltaTime;
-        //}
-
-        // ShotControl();
-    }
-
     int[] GenerateRowTypes()
     {
         int[] temp = new int[(int)_rows.Value];
@@ -104,52 +88,20 @@ public class EnemyGroup : MonoBehaviour
 
     public void ResetEnemies()
     {
+        StopAllCoroutines();
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
         SpawnEnemies();
+        StartCoroutine(ShootControlCrt());
+        StartCoroutine(MoveEnemiesCrt());
 
         LeftOrRight.SetFalse();
     }
 
-    void MoveEnemies()
-    {
-        string direction = Down.Value ? "down" : LeftOrRight.Value ? "left" : "right";
-        for (int r = 0; r < _enemies.GetLength(0); r++)
-        {
-            if (LeftOrRight.Value)
-            {
-                for (int c = 0; c < _enemies.GetLength(1); c++)
-                {
-                    if (_enemies[r, c] != null)
-                    {
-                        GameObject enemy = _enemies[r, c];
-                        EnemyBehavior behavior = enemy.GetComponent<EnemyBehavior>();
-
-                        behavior.Move(direction);
-                    }
-                }
-            }
-            else
-            {
-                for (int c = _enemies.GetLength(1) - 1; c >= 0; c--)
-                {
-                    if (_enemies[r, c] != null)
-                    {
-                        GameObject enemy = _enemies[r, c];
-                        EnemyBehavior behavior = enemy.GetComponent<EnemyBehavior>();
-
-                        behavior.Move(direction);
-                    }
-                }
-            }
-        }
-    }
-
     IEnumerator MoveEnemiesCrt()
     {
-        // change it to subtract from a set move speed value, based on difficulty subtract more or less
         while (true)
         {
             string direction = Down.Value ? "down" : LeftOrRight.Value ? "left" : "right";
@@ -161,7 +113,6 @@ public class EnemyGroup : MonoBehaviour
                     {
                         if (_enemies[r, c] != null)
                         {
-                            Debug.Log(_moveSpeed.Value);
                             GameObject enemy = _enemies[r, c];
                             EnemyBehavior behavior = enemy.GetComponent<EnemyBehavior>();
 
@@ -176,7 +127,6 @@ public class EnemyGroup : MonoBehaviour
                     {
                         if (_enemies[r, c] != null)
                         {
-                            Debug.Log(_moveSpeed.Value);
                             GameObject enemy = _enemies[r, c];
                             EnemyBehavior behavior = enemy.GetComponent<EnemyBehavior>();
 

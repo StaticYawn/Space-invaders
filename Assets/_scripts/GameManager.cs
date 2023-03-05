@@ -87,7 +87,10 @@ public class GameManager : MonoBehaviour
     {
         Resume();
         _gameOverScreen.SetActive(false);
+        _resetGame.Raise();
         ResetEnemies();
+        _gameScore.SetValue(0);
+        UpdateHealthUI();
     }
 
     public void QuitGame()

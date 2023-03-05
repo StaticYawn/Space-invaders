@@ -45,4 +45,10 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    public void Reset()
+    {
+        transform.position = new Vector2(0, transform.position.y);
+        GetComponent<SpriteRenderer>().enabled = true;
+    }
 }

@@ -49,11 +49,11 @@ public class Walls : MonoBehaviour
     {
         if(direction == Direction.top)
         {
-            _wall.transform.position = new Vector2(0, _height);
+            _wall.transform.position = new Vector2(0, _height - 0.5f);
         } 
         else if(direction == Direction.bottom)
         {
-            _wall.transform.position = new Vector2(0, (_height * -1));
+            _wall.transform.position = new Vector2(0, (_height * -1) + 0.5f);
         }
         else if(direction == Direction.right)
         {

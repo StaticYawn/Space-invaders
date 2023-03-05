@@ -10,14 +10,24 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] FloatReference _unitScore;
     [SerializeField] FloatVariable _gameScore;
     [SerializeField] FloatVariable _moveSpeed;
-    [SerializeField] GameEvent hit;
+    [SerializeField] GameEvent hit, _gameOver;
 
     SpriteRenderer _sprite;
-    [SerializeField] Sprite _initSprite, _secondarySprite; 
+    [SerializeField] Sprite _initSprite, _secondarySprite, _explosionSprite;
+
+    bool _canMove = true;
     private void Awake()
     {
         _sprite = GetComponent<SpriteRenderer>();
         _sprite.sprite = _initSprite;
+    }
+
+    private void Update()
+    {
+        if(transform.position.y < -3f)
+        {
+            _gameOver.Raise();
+        }
     }
 
     public bool HitWall(string s)
@@ -67,18 +77,21 @@ public class EnemyBehavior : MonoBehaviour
         {
             _moveSpeed.SetValue(_moveSpeed.Value - 0.01f);
         }
-        Destroy(gameObject);
+        StartCoroutine(DestroyEnemyCrt());
     }
 
     public void Move(string direction)
     {
-        if(_sprite.sprite == _initSprite)
+        if (_canMove)
         {
-            _sprite.sprite = _secondarySprite;
-        }
-        else
-        {
-            _sprite.sprite = _initSprite;
+            if (_sprite.sprite == _initSprite)
+            {
+                _sprite.sprite = _secondarySprite;
+            }
+            else
+            {
+                _sprite.sprite = _initSprite;
+            }
         }
         Vector3 move;
         if(direction == "down")
@@ -105,6 +118,17 @@ public class EnemyBehavior : MonoBehaviour
             }
             move = new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.y);
         }
-        transform.position = move;
+        if (_canMove)
+        {
+            transform.position = move;
+        }
+    }
+    
+    IEnumerator DestroyEnemyCrt()
+    {
+        _sprite.sprite = _explosionSprite;
+        _canMove = false;
+        yield return new WaitForSeconds(0.2f);
+        Destroy(gameObject);
     }
 }

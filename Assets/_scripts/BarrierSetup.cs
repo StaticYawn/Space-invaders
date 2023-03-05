@@ -19,10 +19,10 @@ public class BarrierSetup : MonoBehaviour
         _widthHalf = _width / 2;
         _height = _barrierSprite.height;
 
-        Setup();
+        SetupBarrier();
     }
 
-    private void Setup()
+    private void SetupBarrier()
     {
         for(int x = 0; x < _width; x++)
         {
@@ -30,12 +30,25 @@ public class BarrierSetup : MonoBehaviour
             {
                 Color pixelColor = _barrierSprite.GetPixel((int)x, y);
                 if (pixelColor.a < 1) continue;
-                GameObject pixel = Instantiate(_barrierPixel);
-                pixel.transform.SetParent(transform);
+                GameObject pixel = Instantiate(_barrierPixel, transform);
 
                 Vector2 pos = new Vector2(transform.position.x + (x - _widthHalf) * _pixelSize, transform.position.y + y * _pixelSize);
                 pixel.transform.position = pos;
             }
         }
+    }
+
+    void DestroyBarrier()
+    {
+        foreach(Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    public void ResetBarrier()
+    {
+        DestroyBarrier();
+        SetupBarrier();
     }
 }

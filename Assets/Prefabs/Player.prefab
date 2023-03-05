@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 8731790204830960264}
   - component: {fileID: -7744840065597265198}
   - component: {fileID: 5803708356664133144}
+  - component: {fileID: 4685601971889080188}
+  - component: {fileID: 1471631609}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -53,7 +55,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -129,7 +131,10 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: a547a54559fac0349b18f5d73c66b597, type: 2}
-  hit: {fileID: 11400000, guid: 1e8a5b1cb96f42a4c9e02afafafbd867, type: 2}
+  _hit: {fileID: 11400000, guid: 1e8a5b1cb96f42a4c9e02afafafbd867, type: 2}
+  _death: {fileID: 11400000, guid: 6366d24a6d171cb4b8ac824821a6acdf, type: 2}
+  _pauseGame: {fileID: 11400000, guid: c5253c118330d7d4c88dc1a3b0b3602c, type: 2}
+  _resumeGame: {fileID: 11400000, guid: 8263298ae0a262f42810e4bff29066ee, type: 2}
 --- !u!114 &8731790204830960264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,9 +211,9 @@ MonoBehaviour:
     m_ActionName: Player/Right[/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 2e94e2dc8bdab2e4297665f7a86751fd, type: 2}
-        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
-        m_MethodName: Raise
+      - m_Target: {fileID: 8731790204830960264}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: HandleShot
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -220,6 +225,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9934c12e-c8f9-4c81-ac5c-aca52fa340ec
     m_ActionName: Player/Shoot[/Keyboard/space,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: c5253c118330d7d4c88dc1a3b0b3602c, type: 2}
+        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0ca8677f-164a-4c52-bd98-5deeb7858302
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player
@@ -260,6 +281,54 @@ PolygonCollider2D:
       - {x: 0.2506512, y: 0.018122852}
       - {x: 0.19821519, y: 0.16667926}
       - {x: 0.062251195, y: 0.44846404}
+--- !u!114 &4685601971889080188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5026228619166181960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413bb4646ef6bc84c9c71ea7e7180815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 47db8a953a5dde84da6dd81b0f5210ae, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171970519531843876}
+        m_TargetAssemblyTypeName: PlayerLives, Assembly-CSharp
+        m_MethodName: SetHP
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!95 &1471631609
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5026228619166181960}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cd6a46bbc888ec94f8518ec10b356334, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &5230817634652122721
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -273,11 +342,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1916809804257527919, guid: 0ad93144e5669bb429c349d96dab4d01, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.068
       objectReference: {fileID: 0}
     - target: {fileID: 1916809804257527919, guid: 0ad93144e5669bb429c349d96dab4d01, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.43
+      value: 0.818
       objectReference: {fileID: 0}
     - target: {fileID: 1916809804257527919, guid: 0ad93144e5669bb429c349d96dab4d01, type: 3}
       propertyPath: m_LocalPosition.z
