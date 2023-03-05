@@ -2,13 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 public class EnemyGroup : MonoBehaviour
 {
     [SerializeField] FloatVariable _rows;
     [SerializeField] FloatVariable _columns;
-    [SerializeField] FloatVariable _moveTick;
+    [SerializeField] FloatVariable _moveSpeed;
 
     private float _tickTimer;
     private float _spawnRow;
@@ -27,7 +27,6 @@ public class EnemyGroup : MonoBehaviour
     private float _maxBoundTop;
     private int _maxBoundBottom;
 
-    private Random _rnd = new Random();
 
     [SerializeField] Camera _camera;
     [SerializeField] private GameObject[] _enemyTypes;
@@ -37,38 +36,38 @@ public class EnemyGroup : MonoBehaviour
         LeftOrRight.SetFalse();
         Down.SetFalse();
         Shot.SetFalse();
+        _moveSpeed.SetValue(0.6f);
 
         _maxBoundTop = _camera.orthographicSize - 2;
 
         SetSpawnBounds();
 
         SpawnEnemies();
+
+        StartCoroutine(ShootControlCrt());
+        StartCoroutine(MoveEnemiesCrt());
     }
 
     void Update()
     {
-        if (_tickTimer > _moveTick.Value)
-        {
-            string direction = Down.Value ? "down" : LeftOrRight.Value ? "left" : "right";
-            MoveEnemies(direction);
-            _tickTimer = 0;
-        }
-        else
-        {
-            _tickTimer += Time.deltaTime;
-        }
+        //_moveSpeed = transform.childCount / _enemies.Length;
+        //if (_tickTimer > _moveSpeed)
+        //{
+        //    MoveEnemies();
+        //    _tickTimer = 0;
+        //}
+        //else
+        //{
+        //    _tickTimer += Time.deltaTime;
+        //}
 
-        if (!Shot.Value)
-        {
-            ShotControl();
-            Shot.SetTrue();
-        }
+        // ShotControl();
     }
 
     int[] GenerateRowTypes()
     {
         int[] temp = new int[(int)_rows.Value];
-        for(int i = 0; i < _rows.Value; i++)
+        for (int i = 0; i < _rows.Value; i++)
         {
             temp[i] = i % 3;
         }
@@ -105,7 +104,7 @@ public class EnemyGroup : MonoBehaviour
 
     public void ResetEnemies()
     {
-        foreach(Transform child in transform)
+        foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
@@ -114,45 +113,113 @@ public class EnemyGroup : MonoBehaviour
         LeftOrRight.SetFalse();
     }
 
-    private void MoveEnemies(string s)
+    void MoveEnemies()
     {
+        string direction = Down.Value ? "down" : LeftOrRight.Value ? "left" : "right";
         for (int r = 0; r < _enemies.GetLength(0); r++)
         {
-            for (int c = 0; c < _enemies.GetLength(1); c++)
+            if (LeftOrRight.Value)
             {
-                if (_enemies[r, c] == null) continue;
-                GameObject enemy = _enemies[r, c];
-                EnemyBehavior behavior = enemy.GetComponent<EnemyBehavior>();
+                for (int c = 0; c < _enemies.GetLength(1); c++)
+                {
+                    if (_enemies[r, c] != null)
+                    {
+                        GameObject enemy = _enemies[r, c];
+                        EnemyBehavior behavior = enemy.GetComponent<EnemyBehavior>();
 
-                behavior.Move(s);
+                        behavior.Move(direction);
+                    }
+                }
+            }
+            else
+            {
+                for (int c = _enemies.GetLength(1) - 1; c >= 0; c--)
+                {
+                    if (_enemies[r, c] != null)
+                    {
+                        GameObject enemy = _enemies[r, c];
+                        EnemyBehavior behavior = enemy.GetComponent<EnemyBehavior>();
+
+                        behavior.Move(direction);
+                    }
+                }
             }
         }
     }
 
-    private void ShotControl()
+    IEnumerator MoveEnemiesCrt()
     {
-        List<GameObject> validShooters = new();
-
-        for (int r = 0; r < _enemies.GetLength(0); r++)
+        // change it to subtract from a set move speed value, based on difficulty subtract more or less
+        while (true)
         {
-            for (int c = 0; c < _enemies.GetLength(1); c++)
+            string direction = Down.Value ? "down" : LeftOrRight.Value ? "left" : "right";
+            for (int r = 0; r < _enemies.GetLength(0); r++)
             {
-                if (_enemies[r, c] == null) continue;
-
-                GameObject enemy = _enemies[r, c];
-                EnemyBehavior behavior = enemy.GetComponent<EnemyBehavior>();
-
-                if (!behavior.EnemyInFront())
+                if (LeftOrRight.Value)
                 {
-                    validShooters.Add(enemy);
+                    for (int c = 0; c < _enemies.GetLength(1); c++)
+                    {
+                        if (_enemies[r, c] != null)
+                        {
+                            Debug.Log(_moveSpeed.Value);
+                            GameObject enemy = _enemies[r, c];
+                            EnemyBehavior behavior = enemy.GetComponent<EnemyBehavior>();
+
+                            behavior.Move(direction);
+                            yield return new WaitForSeconds(_moveSpeed.Value / transform.childCount);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int c = _enemies.GetLength(1) - 1; c >= 0; c--)
+                    {
+                        if (_enemies[r, c] != null)
+                        {
+                            Debug.Log(_moveSpeed.Value);
+                            GameObject enemy = _enemies[r, c];
+                            EnemyBehavior behavior = enemy.GetComponent<EnemyBehavior>();
+
+                            behavior.Move(direction);
+                            yield return new WaitForSeconds(_moveSpeed.Value / transform.childCount);
+                        }
+                    }
                 }
             }
+            yield return new WaitForSeconds(_moveSpeed.Value);
         }
+    }
 
-        if (validShooters.Count <= 0) return;
+    IEnumerator ShootControlCrt()
+    {
+        while (true)
+        {
+            List<EnemyBehavior> validShooters = new();
 
-        int index = _rnd.Next(validShooters.Count);
-        EnemyBehavior bhv = validShooters[index].GetComponent<EnemyBehavior>();
-        bhv.Shoot();
+            for (int r = 0; r < _enemies.GetLength(0); r++)
+            {
+                for (int c = 0; c < _enemies.GetLength(1); c++)
+                {
+                    if (_enemies[r, c] == null) continue;
+
+                    GameObject enemy = _enemies[r, c];
+                    EnemyBehavior behavior = enemy.GetComponent<EnemyBehavior>();
+
+                    if (!behavior.EnemyInFront())
+                    {
+                        validShooters.Add(behavior);
+                    }
+                }
+            }
+
+            if (validShooters.Count > 0)
+            {
+                int index = Random.Range(0, validShooters.Count);
+                EnemyBehavior bhv = validShooters[index];
+                bhv.Shoot();
+            }
+
+            yield return new WaitForSeconds(1f);
+        }
     }
 }

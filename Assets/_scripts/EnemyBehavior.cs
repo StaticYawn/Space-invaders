@@ -9,7 +9,16 @@ public class EnemyBehavior : MonoBehaviour
 
     [SerializeField] FloatReference _unitScore;
     [SerializeField] FloatVariable _gameScore;
+    [SerializeField] FloatVariable _moveSpeed;
     [SerializeField] GameEvent hit;
+
+    SpriteRenderer _sprite;
+    [SerializeField] Sprite _initSprite, _secondarySprite; 
+    private void Awake()
+    {
+        _sprite = GetComponent<SpriteRenderer>();
+        _sprite.sprite = _initSprite;
+    }
 
     public bool HitWall(string s)
     {
@@ -54,11 +63,23 @@ public class EnemyBehavior : MonoBehaviour
         if (collision.collider.CompareTag("enemy_bullet")) return;
         _gameScore.ApplyChange(_unitScore.Value);
         hit.Raise();
+        if(_moveSpeed.Value - 0.02f >= 0)
+        {
+            _moveSpeed.SetValue(_moveSpeed.Value - 0.01f);
+        }
         Destroy(gameObject);
     }
 
     public void Move(string direction)
     {
+        if(_sprite.sprite == _initSprite)
+        {
+            _sprite.sprite = _secondarySprite;
+        }
+        else
+        {
+            _sprite.sprite = _initSprite;
+        }
         Vector3 move;
         if(direction == "down")
         {
@@ -72,7 +93,7 @@ public class EnemyBehavior : MonoBehaviour
                 Down.SetTrue();
                 LeftOrRight.SetFalse();
             }
-            move = new Vector3(transform.position.x - 1, transform.position.y, transform.position.y);
+            move = new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.y);
             
         }
         else
@@ -82,7 +103,7 @@ public class EnemyBehavior : MonoBehaviour
                 Down.SetTrue();
                 LeftOrRight.SetTrue();
             }
-            move = new Vector3(transform.position.x + 1, transform.position.y, transform.position.y);
+            move = new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.y);
         }
         transform.position = move;
     }

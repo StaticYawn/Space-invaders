@@ -76,7 +76,10 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 7a1eaec3d20ee444aa9902d130fd9133, type: 2}
   _gameScore: {fileID: 11400000, guid: 5dd954a74b672fd4f919feaceb4dafb6, type: 2}
+  _moveSpeed: {fileID: 11400000, guid: 3c5bf51aab6001648bbd0046153b262b, type: 2}
   hit: {fileID: 11400000, guid: 961ceee16c2a015418e9a13affb051db, type: 2}
+  _initSprite: {fileID: 1095089988, guid: 993a93096c238e74f9777cc1ac7ae678, type: 3}
+  _secondarySprite: {fileID: 321507545, guid: 993a93096c238e74f9777cc1ac7ae678, type: 3}
 --- !u!212 &8844945619689800292
 SpriteRenderer:
   m_ObjectHideFlags: 0
