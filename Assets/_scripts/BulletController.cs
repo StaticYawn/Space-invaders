@@ -51,8 +51,6 @@ public class BulletController : MonoBehaviour
 
     IEnumerator BulletExplosionCrt(Collider2D collider)
     {
-        if (collider.CompareTag("Enemy")) yield break;
-
         if (gameObject.CompareTag("enemy_bullet"))
         {
             if (collider.CompareTag("player_bullet"))
