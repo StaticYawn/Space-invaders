@@ -9,7 +9,6 @@ public class EnemyBehavior : MonoBehaviour
 
     [SerializeField] FloatReference _unitScore;
     [SerializeField] FloatVariable _gameScore;
-    [SerializeField] FloatVariable _moveSpeed;
     [SerializeField] GameEvent hit, _gameOver;
 
     SpriteRenderer _sprite;
@@ -73,10 +72,6 @@ public class EnemyBehavior : MonoBehaviour
         if (collision.collider.CompareTag("enemy_bullet")) return;
         _gameScore.ApplyChange(_unitScore.Value);
         hit.Raise();
-        if(_moveSpeed.Value - 0.02f >= 0)
-        {
-            _moveSpeed.SetValue(_moveSpeed.Value - 0.01f);
-        }
         StartCoroutine(DestroyEnemyCrt());
     }
 

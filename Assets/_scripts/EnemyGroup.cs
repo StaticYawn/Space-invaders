@@ -31,6 +31,8 @@ public class EnemyGroup : MonoBehaviour
     [SerializeField] Camera _camera;
     [SerializeField] private GameObject[] _enemyTypes;
 
+    [SerializeField] AnimationCurve _curve;
+
     void Start()
     {
         LeftOrRight.SetFalse();
@@ -98,6 +100,14 @@ public class EnemyGroup : MonoBehaviour
         StartCoroutine(MoveEnemiesCrt());
 
         LeftOrRight.SetFalse();
+    }
+
+    public void SetMoveSpeed()
+    {
+        float enemyCount = transform.childCount;
+        float totalEnemies = _enemies.Length;
+        float enemyPercentage = (enemyCount / totalEnemies);
+        _moveSpeed.SetValue(_curve.Evaluate(enemyPercentage));
     }
 
     IEnumerator MoveEnemiesCrt()
