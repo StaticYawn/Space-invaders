@@ -11,11 +11,12 @@ public class PlayerController : MonoBehaviour
     private bool _movingRight = false;
     private Rigidbody2D _rb;
 
-
+    [SerializeField] AudioSource _audioSource;
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _shot.SetFalse();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
                 ProjSpawning spawn = transform.GetComponentInChildren<ProjSpawning>();
                 spawn.Shoot();
                 _shot.SetTrue();
+                _audioSource.Play();
             }
         }
     }
