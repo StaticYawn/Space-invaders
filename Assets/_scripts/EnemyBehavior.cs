@@ -55,10 +55,15 @@ public class EnemyBehavior : MonoBehaviour
 
     public bool EnemyInFront()
     {
-        Vector3 position = new Vector3(transform.position.x, (transform.position.y - .6f), 0);
-        RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, 2f);
-        return hit.collider;
+        Vector3 position = new Vector3(transform.position.x, (transform.position.y - 1), 0);
+        //RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, 2f);
+
+        RaycastHit2D hit = Physics2D.BoxCast(position, new Vector2(1f, 0.5f), 0f, new Vector2(0,0));
+
+        if (hit.collider && hit.collider.CompareTag("Enemy")) return true;
+        else return false;
     }
+
 
     public void Shoot()
     {
